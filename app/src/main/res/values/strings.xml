@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Flogger</string>
+    <string name="app_name">Flogger Fitness Logger</string>
+    <string name="empty_not_saved">Routine unable to be added without a name!</string>
+    <string name="edittext_routine_name_hint">Routine Name</string>
+    <string name="button_save_routine_text">Save</string>
+    <string name="button_edit_routine_text">Edit</string>
+    <string name="button_delete_routine_text">Delete</string>
 </resources>
