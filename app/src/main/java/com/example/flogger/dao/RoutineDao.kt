@@ -1,7 +1,8 @@
-package com.example.flogger
+package com.example.flogger.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.flogger.entity.Routine
 
 @Dao
 interface RoutineDao {
@@ -12,7 +13,7 @@ interface RoutineDao {
     suspend fun insert(routine: Routine)
 
     @Update
-    fun update(routine:Routine)
+    fun update(routine: Routine)
 
     @Query("DELETE FROM routine_table")
     suspend fun deleteAll()

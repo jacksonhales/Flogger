@@ -1,4 +1,4 @@
-package com.example.flogger
+package com.example.flogger.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -10,4 +10,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "routine_table")
 data class Routine(@PrimaryKey(autoGenerate = true) val id: Int = 0,
-                    @ColumnInfo(name = "name") val name: String) : Parcelable
+                    @ColumnInfo(name = "name") val name: String
+                   ) : Parcelable

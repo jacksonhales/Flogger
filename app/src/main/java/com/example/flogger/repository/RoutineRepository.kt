@@ -1,6 +1,8 @@
-package com.example.flogger
+package com.example.flogger.repository
 
 import androidx.lifecycle.LiveData
+import com.example.flogger.dao.RoutineDao
+import com.example.flogger.entity.Routine
 
 // Declared the DAO as private prop in the constructor. Pass in DAO instead of whole db, only need access to DAO
 class RoutineRepository (private val routineDao: RoutineDao) {

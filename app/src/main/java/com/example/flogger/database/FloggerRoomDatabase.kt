@@ -1,10 +1,12 @@
-package com.example.flogger
+package com.example.flogger.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.flogger.dao.RoutineDao
+import com.example.flogger.entity.Routine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

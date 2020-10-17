@@ -16,4 +16,11 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_baseline_edit_24"
         android:text="@string/button_edit_routine_text"/>
+
+    <Button
+        android:id="@+id/button_delete_routine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_delete_24"
+        android:text="@string/button_delete_routine_text"/>
 </LinearLayout>

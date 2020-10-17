@@ -1,9 +1,12 @@
-package com.example.flogger
+package com.example.flogger.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.flogger.database.FloggerRoomDatabase
+import com.example.flogger.repository.RoutineRepository
+import com.example.flogger.entity.Routine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,7 +27,7 @@ class RoutineViewModel (application: Application) : AndroidViewModel(application
         allRoutines = repository.allRoutines
     }
 
-    // new coroutine launch for inserting in a non-blocking way
+    // coroutine launch for inserting in a non-blocking way
     fun insert(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(routine)
     }

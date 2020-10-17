@@ -1,15 +1,18 @@
-package com.example.flogger
+package com.example.flogger.activity
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.flogger.R
+import com.example.flogger.adapter.RoutineListAdapter
+import com.example.flogger.entity.Routine
+import com.example.flogger.viewmodel.RoutineViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -40,10 +43,14 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, newRoutineActivityRequestCode)
         }
 
-        adapter.setOnItemClickListener {
+        adapter.setEditOnClickListener {
             val intent = Intent(this@MainActivity, EditRoutineActivity::class.java)
             intent.putExtra("routine", it)
             startActivityForResult(intent, editRoutineActivityRequestCode)
+        }
+
+        adapter.setDeleteOnClickListener {
+            routineViewModel.delete(it)
         }
     }
 
