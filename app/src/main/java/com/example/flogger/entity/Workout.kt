@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+/*
 @Parcelize
 @Entity(tableName = "workout_table")
-data class Workout(@PrimaryKey(autoGenerate = true) val id: Int = 0,
+data class Workout(@PrimaryKey(autoGenerate = true) val id: Long = 0,
                @ColumnInfo(name = "date") val date: Date,
-               @ColumnInfo(name = "routineId") val routineId: Int
-) : Parcelable
+               @ColumnInfo(name = "routineId") val routineId: Long
+) : Parcelable*/

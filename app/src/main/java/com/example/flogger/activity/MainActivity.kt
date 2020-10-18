@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
 
         routineViewModel.allRoutines.observe(this, Observer { routines ->
-                                                                    // update cached copy of routines in the adapter
-                                                                    routines?.let{adapter.setRoutines(it)}
+                                                                        // update cached copy of routines in the adapter
+                                                                        routines?.let{adapter.setRoutines(it)}
         })
 
         addRoutineFab.setOnClickListener {

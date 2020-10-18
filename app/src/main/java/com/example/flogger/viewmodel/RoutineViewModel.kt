@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.flogger.database.FloggerRoomDatabase
 import com.example.flogger.repository.RoutineRepository
 import com.example.flogger.entity.Routine
+/*import com.example.flogger.relationships.RoutineWithSets*/
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -27,7 +28,11 @@ class RoutineViewModel (application: Application) : AndroidViewModel(application
         allRoutines = repository.allRoutines
     }
 
-    // coroutine launch for inserting in a non-blocking way
+/*    // coroutine launches for inserting in a non-blocking way
+    fun insertWithSets(routineWithSets: RoutineWithSets) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertWithSets(routineWithSets)
+    }*/
+
     fun insert(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(routine)
     }
@@ -39,5 +44,4 @@ class RoutineViewModel (application: Application) : AndroidViewModel(application
     fun delete(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(routine)
     }
-
 }

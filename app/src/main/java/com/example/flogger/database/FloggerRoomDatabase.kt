@@ -6,15 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.flogger.dao.RoutineDao
+/*import com.example.flogger.dao.SetDao*/
 import com.example.flogger.entity.Routine
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // Room database annotation
-@Database (entities = [Routine::class], version = 1, exportSchema = false)
+@Database (entities = [Routine::class/*, Set::class*/], version = 1, exportSchema = false)
 public abstract class FloggerRoomDatabase : RoomDatabase() {
 
     abstract fun routineDao(): RoutineDao
+   /* abstract fun setDao(): SetDao*/
 
     private class RoutineDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
 

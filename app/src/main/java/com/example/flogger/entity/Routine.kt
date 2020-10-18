@@ -9,6 +9,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "routine_table")
-data class Routine(@PrimaryKey(autoGenerate = true) val id: Int = 0,
+data class Routine(
+                    @PrimaryKey(autoGenerate = true) val id: Long = 0,
                     @ColumnInfo(name = "name") val name: String
-                   ) : Parcelable
+) : Parcelable

@@ -27,7 +27,6 @@ class EditRoutineActivity : AppCompatActivity() {
 
         editRoutineNameView.setText(sentRoutine.name)
 
-
         buttonSaveRoutine.setOnClickListener{
             val replyIntent = Intent()
 
