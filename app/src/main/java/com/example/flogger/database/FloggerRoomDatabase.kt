@@ -10,21 +10,22 @@ import com.example.flogger.dao.SetDao
 import com.example.flogger.entity.Routine
 import com.example.flogger.entity.Set
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 // Room database annotation
-@Database (entities = [Routine::class, Set::class], version = 3, exportSchema = false)
+@Database (entities = [Routine::class, Set::class], version = 4, exportSchema = false)
 public abstract class FloggerRoomDatabase : RoomDatabase() {
 
     abstract fun routineDao(): RoutineDao
     abstract fun setDao(): SetDao
 
-    private class RoutineDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
+    private class RoutineDatabaseCallback() : RoomDatabase.Callback() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let {
-                database -> scope.launch { populateDatabase(database.routineDao(), database.setDao()) }
+                database -> GlobalScope.launch { populateDatabase(database.routineDao(), database.setDao()) }
             }
         }
 
@@ -51,7 +52,7 @@ public abstract class FloggerRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: FloggerRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): FloggerRoomDatabase {
+        fun getDatabase(context: Context): FloggerRoomDatabase {
             val tempInstance = INSTANCE
 
             if (tempInstance != null) {
@@ -64,7 +65,7 @@ public abstract class FloggerRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     FloggerRoomDatabase::class.java,
                     "flogger_database"
-                ).fallbackToDestructiveMigration().addCallback(RoutineDatabaseCallback(scope)).build()
+                ).fallbackToDestructiveMigration().addCallback(RoutineDatabaseCallback()).build()
                 INSTANCE = instance
                 return instance
             }

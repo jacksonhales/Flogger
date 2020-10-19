@@ -7,21 +7,26 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
-import com.example.flogger.relationships.RoutineWithSets
+import com.example.flogger.entity.Routine
 import kotlinx.android.synthetic.main.routine_recyclerview_item.view.*
 
-class RoutineListAdapter internal constructor(context: Context) : RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder>(){
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var routines = emptyList<RoutineWithSets>() // cached copy of routines
-    private var editListener: ((routine: RoutineWithSets) -> Unit)? = null
-    private var deleteListener: ((routine: RoutineWithSets) -> Unit)? = null
+class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder>(){
 
-    fun setEditOnClickListener(listener: (routine: RoutineWithSets) -> Unit) {
+    private var editListener: ((routine: Routine) -> Unit)? = null
+    private var deleteListener: ((routine: Routine) -> Unit)? = null
+
+    fun setEditOnClickListener(listener: (routine: Routine) -> Unit) {
         this.editListener = listener
     }
 
-    fun setDeleteOnClickListener(listener: (routine: RoutineWithSets) -> Unit) {
+    fun setDeleteOnClickListener(listener: (routine: Routine) -> Unit) {
         this.deleteListener = listener
+    }
+
+    fun refreshAdapter(newRoutines : List<Routine>){
+        routines.clear()
+        routines.addAll(newRoutines)
+        notifyDataSetChanged()
     }
 
     inner class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,16 +37,14 @@ class RoutineListAdapter internal constructor(context: Context) : RecyclerView.A
             itemView.button_delete_routine.setOnClickListener { deleteListener?.invoke(routines[adapterPosition])}
         }
 
-        fun bind(item: RoutineWithSets)
+        fun bind(item: Routine)
         {
-            routineNameView.text = item.routine.name
+            routineNameView.text = item.name
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoutineViewHolder {
-        val itemView = inflater.inflate(R.layout.routine_recyclerview_item, parent, false)
-        return RoutineViewHolder(itemView)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoutineViewHolder(LayoutInflater.from(parent.context).inflate(
+        R.layout.routine_recyclerview_item, parent, false))
 
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
         val current = routines[position]
@@ -50,8 +53,4 @@ class RoutineListAdapter internal constructor(context: Context) : RecyclerView.A
 
     override fun getItemCount() = routines.size
 
-    internal fun setRoutines(routines: List<RoutineWithSets>) {
-        this.routines = routines
-        notifyDataSetChanged()
-    }
 }

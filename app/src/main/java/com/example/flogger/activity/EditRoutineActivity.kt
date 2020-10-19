@@ -9,54 +9,54 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
-import com.example.flogger.adapter.RoutineListAdapter
 import com.example.flogger.adapter.SetListAdapter
-import com.example.flogger.relationships.RoutineWithSets
+import com.example.flogger.entity.Routine
+import com.example.flogger.entity.Set
 import com.example.flogger.viewmodel.RoutineViewModel
 
 class EditRoutineActivity : AppCompatActivity() {
 
-    private lateinit var editRoutineNameView: EditText
     private lateinit var setListAdapter: SetListAdapter
     private lateinit var routineViewModel: RoutineViewModel
-    private lateinit var routine: RoutineWithSets
-    private lateinit var allRoutinesWithSets: List<RoutineWithSets>
+    private lateinit var routine: Routine
+    private lateinit var sets: List<Set>
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_routine)
 
-        setListAdapter = SetListAdapter(this)
-        val setRecyclerView = findViewById<RecyclerView>(R.id.set_recyclerview)
+        var editRoutineNameView = findViewById<EditText>(R.id.edit_routine_name)
 
-        setRecyclerView.adapter = setListAdapter
-        setRecyclerView.layoutManager = LinearLayoutManager(this)
-
-
-        initView()
         initData()
+        initView()
     }
 
     private fun initData() {
-        val routineId = intent.getLongExtra("routineId", 0)
+        /*val routineId = intent.getLongExtra("routineId", 0)*/
         routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
 
-        routineViewModel.allRoutinesWithSets.observe(this, Observer { routines: List<RoutineWithSets> ->
+       /* routineViewModel.allRoutines.observe(this, Observer { routines: List<Routine> ->
             allRoutinesWithSets = routines
-            routines.find {it.routine.routineId == routineId}?.sets?.let { setListAdapter.setSets(it) }
-        })
+            routines.find {it.routine.routineId == routineId}?.let { routine = it }
+            setListAdapter.setSets(routine.sets)
+            editRoutineNameView.setText(routine.routine.name)
+        })*/
     }
 
     private fun initView() {
-        editRoutineNameView = findViewById(R.id.edit_routine_name)
 
         val buttonSaveRoutine = findViewById<Button>(R.id.button_save_routine)
 
         buttonSaveRoutine.setOnClickListener{
 
         }
+
+        val setRecyclerView = findViewById<RecyclerView>(R.id.set_recyclerview)
+        setListAdapter = SetListAdapter(this)
+        setRecyclerView.adapter = setListAdapter
+        setRecyclerView.layoutManager = LinearLayoutManager(this)
+
     }
 
     companion object {

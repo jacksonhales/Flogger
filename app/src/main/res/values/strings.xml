@@ -7,4 +7,7 @@
     <string name="button_delete_routine_text">Delete</string>
     <string name="textview_set_recyclerview">Sets</string>
     <string name="textview_routine_name">Routine Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fab_add_routine_content_description">Add Routine</string>
 </resources>

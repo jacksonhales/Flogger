@@ -8,8 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.entity.Set
-import com.example.flogger.relationships.RoutineWithSets
-import kotlinx.android.synthetic.main.routine_recyclerview_item.view.*
 
 class SetListAdapter internal constructor(context: Context) : RecyclerView.Adapter<SetListAdapter.SetViewHolder>(){
     private val inflater: LayoutInflater = LayoutInflater.from(context)
