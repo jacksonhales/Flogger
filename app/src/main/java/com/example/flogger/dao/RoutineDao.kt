@@ -4,16 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.flogger.entity.Routine
 /*import com.example.flogger.entity.Set*/
-/*import com.example.flogger.relationships.RoutineWithSets*/
+import com.example.flogger.relationships.RoutineWithSets
 
 @Dao
 interface RoutineDao {
-    @Query ("SELECT * from routine_table ORDER BY id ASC")
-    fun getRoutines(): LiveData<List<Routine>>
+    @Query ("SELECT * FROM routine_table ORDER BY routineId ASC")
+    fun getAllRoutines(): LiveData<List<Routine>>
 
-/*    @Transaction
+    @Transaction
     @Query("SELECT * FROM routine_table")
-    fun getRoutineWithSets(): LiveData<List<RoutineWithSets>>*/
+    fun getAllRoutinesWithSets(): LiveData<List<RoutineWithSets>>
+
+    @Transaction
+    @Query("SELECT * FROM routine_table WHERE routineId=(:routineId) ORDER BY routineId ASC")
+    fun getRoutineWithSetsById(routineId: Long): RoutineWithSets
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -30,5 +34,7 @@ interface RoutineDao {
 
     @Delete
     suspend fun delete(routine: Routine)
+
+
 
 }

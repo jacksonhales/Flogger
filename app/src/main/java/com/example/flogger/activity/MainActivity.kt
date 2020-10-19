@@ -12,52 +12,68 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.adapter.RoutineListAdapter
 import com.example.flogger.entity.Routine
+import com.example.flogger.relationships.RoutineWithSets
 import com.example.flogger.viewmodel.RoutineViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var routineViewModel: RoutineViewModel
+    private lateinit var routineListAdapter: RoutineListAdapter
     private val newRoutineActivityRequestCode = 1
     private val editRoutineActivityRequestCode = 2
+    private lateinit var allRoutinesWithSets: List<RoutineWithSets>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.routine_recyclerview)
-        val addRoutineFab = findViewById<FloatingActionButton>(R.id.routine_add_fab)
-        val adapter = RoutineListAdapter(this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        routineListAdapter = RoutineListAdapter(this)
 
+        initView()
+        initData()
+    }
+
+    private fun initData()
+    {
         routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
 
-        routineViewModel.allRoutines.observe(this, Observer { routines ->
-                                                                        // update cached copy of routines in the adapter
-                                                                        routines?.let{adapter.setRoutines(it)}
+        routineViewModel.allRoutinesWithSets.observe(this, Observer { routines: List<RoutineWithSets> ->
+            allRoutinesWithSets = routines
+            routineListAdapter.setRoutines(allRoutinesWithSets)
         })
+    }
+
+    private fun initView() {
+
+        val addRoutineFab = findViewById<FloatingActionButton>(R.id.routine_add_fab)
 
         addRoutineFab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewRoutineActivity::class.java)
             startActivityForResult(intent, newRoutineActivityRequestCode)
         }
 
-        adapter.setEditOnClickListener {
+        val recyclerView = findViewById<RecyclerView>(R.id.routine_recyclerview)
+
+        recyclerView.adapter = routineListAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+
+        routineListAdapter.setEditOnClickListener {
             val intent = Intent(this@MainActivity, EditRoutineActivity::class.java)
-            intent.putExtra("routine", it)
+            intent.putExtra("routineId", it.routine.routineId)
             startActivityForResult(intent, editRoutineActivityRequestCode)
         }
 
-        adapter.setDeleteOnClickListener {
-            routineViewModel.delete(it)
+        routineListAdapter.setDeleteOnClickListener {
+            /*routineViewModel.delete(it)*/
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newRoutineActivityRequestCode && resultCode == Activity.RESULT_OK) {
+       /* if (requestCode == newRoutineActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewRoutineActivity.EXTRA_REPLY)?.let {
                 val routine = Routine(0, it)
                 routineViewModel.insert(routine)
@@ -71,6 +87,6 @@ class MainActivity : AppCompatActivity() {
         else {
                 Toast.makeText(applicationContext, R.string.empty_not_saved, Toast.LENGTH_LONG)
                     .show()
-            }
+            }*/
         }
     }

@@ -1,16 +1,20 @@
 package com.example.flogger.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
-/*
-@Parcelize
-@Entity(tableName = "set_table")
+@Entity(tableName = "set_table",
+    foreignKeys = [ForeignKey(
+        entity = Routine::class,
+        parentColumns = ["routineId"],
+        childColumns = ["ownerId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Set(
-               @PrimaryKey(autoGenerate = true) val id: Long = 0,
-               @ColumnInfo(name = "order") val order: Int,
-               @ColumnInfo(name = "routineId") var routineId: Long
-) : Parcelable*/
+               @PrimaryKey(autoGenerate = true) val setId: Long = 0,
+               @ColumnInfo(name = "performOrder") val performOrder: Int,
+               @ColumnInfo(name = "ownerId") var ownerId: Long
+)

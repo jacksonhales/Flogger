@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
-import com.example.flogger.entity.Routine
+import com.example.flogger.relationships.RoutineWithSets
 import kotlinx.android.synthetic.main.routine_recyclerview_item.view.*
 
 class RoutineListAdapter internal constructor(context: Context) : RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder>(){
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var routines = emptyList<Routine>() // cached copy of routines
-    private var editListener: ((routine: Routine) -> Unit)? = null
-    private var deleteListener: ((routine: Routine) -> Unit)? = null
+    private var routines = emptyList<RoutineWithSets>() // cached copy of routines
+    private var editListener: ((routine: RoutineWithSets) -> Unit)? = null
+    private var deleteListener: ((routine: RoutineWithSets) -> Unit)? = null
 
-    fun setEditOnClickListener(listener: (routine: Routine) -> Unit) {
+    fun setEditOnClickListener(listener: (routine: RoutineWithSets) -> Unit) {
         this.editListener = listener
     }
 
-    fun setDeleteOnClickListener(listener: (routine: Routine) -> Unit) {
+    fun setDeleteOnClickListener(listener: (routine: RoutineWithSets) -> Unit) {
         this.deleteListener = listener
     }
 
@@ -32,9 +32,9 @@ class RoutineListAdapter internal constructor(context: Context) : RecyclerView.A
             itemView.button_delete_routine.setOnClickListener { deleteListener?.invoke(routines[adapterPosition])}
         }
 
-        fun bind(item: Routine)
+        fun bind(item: RoutineWithSets)
         {
-            routineNameView.text = item.name
+            routineNameView.text = item.routine.name
         }
     }
 
@@ -50,7 +50,7 @@ class RoutineListAdapter internal constructor(context: Context) : RecyclerView.A
 
     override fun getItemCount() = routines.size
 
-    internal fun setRoutines(routines: List<Routine>) {
+    internal fun setRoutines(routines: List<RoutineWithSets>) {
         this.routines = routines
         notifyDataSetChanged()
     }

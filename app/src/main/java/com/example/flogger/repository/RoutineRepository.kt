@@ -3,15 +3,17 @@ package com.example.flogger.repository
 import androidx.lifecycle.LiveData
 import com.example.flogger.dao.RoutineDao
 import com.example.flogger.entity.Routine
-/*import com.example.flogger.entity.Set
-import com.example.flogger.relationships.RoutineWithSets*/
+import com.example.flogger.relationships.RoutineWithSets
+
+/*import com.example.flogger.entity.Set*/
 
 // Declared the DAO as private prop in the constructor. Pass in DAO instead of whole db, only need access to DAO
 class RoutineRepository (private val routineDao: RoutineDao) {
 
     // Room executes all queries on a separate thread
     // Observed LiveData will notify the observer when changed
-    val allRoutines: LiveData<List<Routine>> = routineDao.getRoutines()
+    /*val allRoutines: LiveData<List<Routine>> = routineDao.getAllRoutines()*/
+    val allRoutinesWithSets: LiveData<List<RoutineWithSets>> = routineDao.getAllRoutinesWithSets()
 
     suspend fun insert(routine: Routine) {
         routineDao.insert(routine)
@@ -33,6 +35,10 @@ class RoutineRepository (private val routineDao: RoutineDao) {
 
     suspend fun delete(routine: Routine) {
         routineDao.delete(routine)
+    }
+
+    fun getRoutineWithSetsById(routineId: Long) : RoutineWithSets {
+        return routineDao.getRoutineWithSetsById(routineId)
     }
 
 

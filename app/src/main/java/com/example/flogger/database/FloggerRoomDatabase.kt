@@ -6,38 +6,43 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.flogger.dao.RoutineDao
-/*import com.example.flogger.dao.SetDao*/
+import com.example.flogger.dao.SetDao
 import com.example.flogger.entity.Routine
+import com.example.flogger.entity.Set
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // Room database annotation
-@Database (entities = [Routine::class/*, Set::class*/], version = 1, exportSchema = false)
+@Database (entities = [Routine::class, Set::class], version = 3, exportSchema = false)
 public abstract class FloggerRoomDatabase : RoomDatabase() {
 
     abstract fun routineDao(): RoutineDao
-   /* abstract fun setDao(): SetDao*/
+    abstract fun setDao(): SetDao
 
     private class RoutineDatabaseCallback(private val scope: CoroutineScope) : RoomDatabase.Callback() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let {
-                database -> scope.launch { populateDatabase(database.routineDao()) }
+                database -> scope.launch { populateDatabase(database.routineDao(), database.setDao()) }
             }
         }
 
-        suspend fun populateDatabase(routineDao: RoutineDao) {
+        suspend fun populateDatabase(routineDao: RoutineDao, setDao: SetDao) {
             // delete all db content
+            setDao.deleteAll()
             routineDao.deleteAll()
 
+
             // add initial data
-            var routine = Routine(0, "Strength" )
-            routineDao.insert(routine)
-            routine = Routine(0, "Flexibility")
-            routineDao.insert(routine)
-            routine = Routine(0, "Cardio")
-            routineDao.insert(routine)
+            val routine = Routine(0, "Strength" )
+            val routineId = routineDao.insert(routine)
+
+            var set = Set(0, 1, routineId)
+            setDao.insert(set)
+
+            set = Set(0, 2, routineId)
+            setDao.insert(set)
         }
     }
 
@@ -59,7 +64,7 @@ public abstract class FloggerRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     FloggerRoomDatabase::class.java,
                     "flogger_database"
-                )/*.addCallback(RoutineDatabaseCallback(scope))*/.build()
+                ).fallbackToDestructiveMigration().addCallback(RoutineDatabaseCallback(scope)).build()
                 INSTANCE = instance
                 return instance
             }
