@@ -65,7 +65,7 @@ public abstract class FloggerRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     FloggerRoomDatabase::class.java,
                     "flogger_database"
-                ).fallbackToDestructiveMigration().addCallback(RoutineDatabaseCallback()).build()
+                ).fallbackToDestructiveMigration()/*.addCallback(RoutineDatabaseCallback())*/.build()
                 INSTANCE = instance
                 return instance
             }

@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Flogger Fitness Logger</string>
-    <string name="empty_not_saved">Routine unable to be added without a name!</string>
-    <string name="edittext_routine_name_hint">Routine Name</string>
     <string name="button_save_routine_text">Save</string>
-    <string name="button_edit_routine_text">Edit</string>
-    <string name="button_delete_routine_text">Delete</string>
+    <string name="button_edit_text">Edit</string>
+    <string name="button_delete_text">Delete</string>
     <string name="textview_set_recyclerview">Sets</string>
-    <string name="textview_routine_name">Routine Name</string>
+    <string name="button_routine_name">Routine Name</string>
+    <string name="button_add_routine">Add Routine</string>
+    <string name="button_save_routine">Save Routine</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fab_add_routine_content_description">Add Routine</string>
+    <string name="button_save_set">Save Set</string>
 </resources>

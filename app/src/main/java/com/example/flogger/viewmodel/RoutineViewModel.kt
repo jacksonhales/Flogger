@@ -1,6 +1,5 @@
 package com.example.flogger.viewmodel
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.flogger.entity.Routine
@@ -8,17 +7,20 @@ import com.example.flogger.repository.RoutineRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class RoutineViewModel @ViewModelInject constructor(private val routineRepository: RoutineRepository) :
     ViewModel(), LifecycleObserver {
 
-    var routine = Routine(0, "")
+    var routines: LiveData<MutableList<Routine>> = MutableLiveData()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun getRoutine(){
+    fun getRoutines(){
         viewModelScope.launch {
-            /*routine = routineRepository.getRoutineById(routineId)*/
+            routines = routineRepository.getRoutines()
         }
+    }
+
+    fun getRoutine(routineId: Long) : Routine {
+        return routineRepository.getRoutineById(routineId)
     }
 
     fun insert(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {

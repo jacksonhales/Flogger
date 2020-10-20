@@ -10,7 +10,7 @@ interface RoutineDao {
     fun getRoutines(): LiveData<MutableList<Routine>>
 
     @Query ("SELECT * FROM routine_table WHERE routineId=(:routineId)")
-    suspend fun getRoutineById(routineId: Long): Routine
+    fun getRoutineById(routineId: Long): Routine
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -24,8 +24,4 @@ interface RoutineDao {
 
     @Delete
     suspend fun delete(routine: Routine)
-
-
-
-
 }

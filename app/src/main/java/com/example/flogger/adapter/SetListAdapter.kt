@@ -1,6 +1,5 @@
 package com.example.flogger.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,34 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.entity.Set
+import kotlinx.android.synthetic.main.set_recyclerview_item.view.*
 
-class SetListAdapter internal constructor(context: Context) : RecyclerView.Adapter<SetListAdapter.SetViewHolder>(){
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var sets = emptyList<Set>() // cached copy of routines
+class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAdapter.SetViewHolder>(){
+
+    private var editListener: ((set: Set) -> Unit)? = null
+    private var deleteListener: ((set: Set) -> Unit)? = null
+
+    fun setEditOnClickListener(listener: (set: Set) -> Unit) {
+        this.editListener = listener
+    }
+
+    fun setDeleteOnClickListener(listener: (set: Set) -> Unit) {
+        this.deleteListener = listener
+    }
+
+    fun refreshAdapter(newSets : List<Set>){
+        sets.clear()
+        sets.addAll(newSets)
+        notifyDataSetChanged()
+    }
 
     inner class SetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val setPerformOrderView: TextView = itemView.findViewById(R.id.textview_set_performOrder)
+
+        init {
+            itemView.button_edit_set.setOnClickListener { editListener?.invoke(sets[adapterPosition])}
+            itemView.button_delete_set.setOnClickListener { deleteListener?.invoke(sets[adapterPosition])}
+        }
 
         fun bind(item: Set)
         {
@@ -22,10 +42,9 @@ class SetListAdapter internal constructor(context: Context) : RecyclerView.Adapt
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetViewHolder {
-        val itemView = inflater.inflate(R.layout.set_recyclerview_item, parent, false)
-        return SetViewHolder(itemView)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SetViewHolder(
+        LayoutInflater.from(parent.context).inflate(
+        R.layout.set_recyclerview_item, parent, false))
 
     override fun onBindViewHolder(holder: SetViewHolder, position: Int) {
         val current = sets[position]
@@ -33,9 +52,4 @@ class SetListAdapter internal constructor(context: Context) : RecyclerView.Adapt
     }
 
     override fun getItemCount() = sets.size
-
-    internal fun setSets(sets: List<Set>) {
-        this.sets = sets
-        notifyDataSetChanged()
-    }
 }

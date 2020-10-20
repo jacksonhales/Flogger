@@ -1,6 +1,9 @@
 package com.example.flogger.repository
 
+import androidx.lifecycle.LiveData
 import com.example.flogger.dao.RoutineDao
+import com.example.flogger.dao.SetDao
+import com.example.flogger.entity.Set
 import com.example.flogger.entity.Routine
 import javax.inject.Inject
 
@@ -8,7 +11,7 @@ class RoutineRepository @Inject constructor(private val routineDao: RoutineDao) 
 
     fun getRoutines() = routineDao.getRoutines()
 
-    suspend fun getRoutineById(routineId: Long): Routine {
+    fun getRoutineById(routineId: Long): Routine {
         return routineDao.getRoutineById(routineId)
     }
 
@@ -23,6 +26,4 @@ class RoutineRepository @Inject constructor(private val routineDao: RoutineDao) 
     suspend fun delete(routine: Routine) {
         routineDao.delete(routine)
     }
-
-
 }

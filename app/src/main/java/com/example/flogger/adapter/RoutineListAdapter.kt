@@ -52,5 +52,4 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
     }
 
     override fun getItemCount() = routines.size
-
 }
