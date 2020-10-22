@@ -2,21 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/routine_nav_graph"
     app:startDestination="@id/routineListFragment">
 
-    <fragment
-        android:id="@+id/routineListFragment"
-        android:name="com.example.flogger.fragment.RoutineListFragment"
-        android:label="fragment_routine_list"
-        tools:layout="@layout/fragment_routine_list">
-        <action
-            android:id="@+id/action_routineListFragment_to_addRoutineFragment"
-            app:destination="@id/addRoutineFragment" />
-        <action
-            android:id="@+id/action_routineListFragment_to_editRoutineFragment"
-            app:destination="@id/editRoutineFragment" />
-    </fragment>
     <fragment
         android:id="@+id/addRoutineFragment"
         android:name="com.example.flogger.fragment.AddRoutineFragment"
@@ -31,9 +19,6 @@
         android:name="com.example.flogger.fragment.EditRoutineFragment"
         android:label="fragment_edit_routine"
         tools:layout="@layout/fragment_edit_routine" >
-        <action
-            android:id="@+id/action_editRoutineFragment_to_routineListFragment"
-            app:destination="@id/routineListFragment" />
         <argument
             android:name="routine"
             app:argType="com.example.flogger.entity.Routine">
@@ -41,6 +26,9 @@
         <action
             android:id="@+id/action_editRoutineFragment_to_editSetFragment"
             app:destination="@id/editSetFragment" />
+        <action
+            android:id="@+id/action_editRoutineFragment_to_addSetFragment"
+            app:destination="@id/addSetFragment" />
     </fragment>
     <fragment
         android:id="@+id/editSetFragment"
@@ -52,5 +40,29 @@
             app:argType="com.example.flogger.entity.Set">
         </argument>
     </fragment>
-
+    <fragment
+        android:id="@+id/routineListFragment"
+        android:name="com.example.flogger.fragment.RoutineListFragment"
+        android:label="fragment_routine_list"
+        tools:layout="@layout/fragment_routine_list" >
+        <action
+            android:id="@+id/action_routineListFragment_to_editRoutineFragment"
+            app:destination="@id/editRoutineFragment" />
+        <action
+            android:id="@+id/action_routineListFragment_to_addRoutineFragment"
+            app:destination="@id/addRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSetFragment"
+        android:name="com.example.flogger.fragment.AddSetFragment"
+        android:label="fragment_add_set"
+        tools:layout="@layout/fragment_add_set">
+        <argument
+            android:name="routine"
+            app:argType="com.example.flogger.entity.Routine">
+        </argument>
+        <action
+            android:id="@+id/action_addSetFragment_to_editRoutineFragment"
+            app:destination="@id/editRoutineFragment" />
+    </fragment>
 </navigation>

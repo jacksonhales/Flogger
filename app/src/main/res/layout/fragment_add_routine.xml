@@ -19,7 +19,7 @@
             android:id="@+id/add_routine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_add_routine"/>
+            android:text="@string/fab_add_routine"/>
     </LinearLayout>
 
 

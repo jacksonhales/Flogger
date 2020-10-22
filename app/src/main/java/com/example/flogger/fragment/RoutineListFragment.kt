@@ -62,7 +62,7 @@ class RoutineListFragment : Fragment() {
         }
 
         routineAdapter.setDeleteOnClickListener {
-            routineViewModel.delete(it)
+            routineViewModel.deleteRoutine(it)
         }
     }
 
@@ -71,7 +71,7 @@ class RoutineListFragment : Fragment() {
         routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
         this.lifecycle.addObserver(routineViewModel)
 
-        routine_add_fab.setOnClickListener {
+        fab_add_routine.setOnClickListener {
             val action =
                 RoutineListFragmentDirections
                     .actionRoutineListFragmentToAddRoutineFragment()

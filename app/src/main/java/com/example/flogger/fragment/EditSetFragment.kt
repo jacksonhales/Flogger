@@ -42,7 +42,7 @@ class EditSetFragment : Fragment() {
 
         set = args.set
 
-        textview_set_performOrder.setText(set?.performOrder.toString())
+        edittext_set_performOrder.setText(set?.performOrder.toString())
     }
 
 

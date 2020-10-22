@@ -37,8 +37,8 @@ class AddRoutineFragment : Fragment() {
         this.lifecycle.addObserver(routineViewModel)
 
         add_routine.setOnClickListener {
-            val routine = getNewRoutineDetails()
-            routineViewModel.insert(routine)
+            val routine = getRoutineDetails()
+            routineViewModel.insertRoutine(routine)
 
             val action =
                 AddRoutineFragmentDirections
@@ -47,7 +47,7 @@ class AddRoutineFragment : Fragment() {
         }
     }
 
-    private fun getNewRoutineDetails(): Routine {
+    private fun getRoutineDetails(): Routine {
         val name = routine_name.text.toString()
         return Routine(0, name)
     }

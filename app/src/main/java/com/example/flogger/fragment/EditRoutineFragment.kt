@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flogger.R
 import com.example.flogger.adapter.SetListAdapter
 import com.example.flogger.entity.Routine
-import com.example.flogger.viewmodel.EditRoutineViewModel
+import com.example.flogger.viewmodel.SetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_routine.routine_name
 import kotlinx.android.synthetic.main.fragment_edit_routine.*
 
 @AndroidEntryPoint
@@ -23,7 +22,7 @@ class EditRoutineFragment() : Fragment() {
     private val args: EditRoutineFragmentArgs by navArgs()
     private lateinit var setAdapter: SetListAdapter
     private var routine: Routine? = null
-    private lateinit var editRoutineViewModel: EditRoutineViewModel
+    private lateinit var setViewModel: SetViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,7 @@ class EditRoutineFragment() : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        routine?.routineId?.let { editRoutineViewModel.getSets(it) }
+        routine?.routineId?.let { setViewModel.getSets(it) }
         getSets()
     }
 
@@ -67,21 +66,29 @@ class EditRoutineFragment() : Fragment() {
         }
 
         setAdapter.setDeleteOnClickListener {
-            editRoutineViewModel.deleteSet(it)
+            setViewModel.deleteSet(it)
         }
     }
 
     private fun initView() {
-        editRoutineViewModel = ViewModelProvider(this).get(EditRoutineViewModel::class.java)
+        setViewModel = ViewModelProvider(this).get(SetViewModel::class.java)
 
         routine = args.routine
 
-        routine_name.setText(routine?.name)
+        edittext_routine_name.setText(routine?.name)
+
+        fab_add_set.setOnClickListener {
+            val action =
+                EditRoutineFragmentDirections
+                    .actionEditRoutineFragmentToAddSetFragment(routine!!)
+            view?.findNavController()?.navigate(action)
+        }
+
     }
 
     private fun getSets()
     {
-        editRoutineViewModel.sets.observe(this,  Observer {
+        setViewModel.sets.observe(this,  Observer {
             setAdapter.refreshAdapter(it)
         })
     }

@@ -7,7 +7,7 @@ import com.example.flogger.repository.SetRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EditRoutineViewModel @ViewModelInject constructor(private val setRepository: SetRepository)
+class SetViewModel @ViewModelInject constructor(private val setRepository: SetRepository)
     : ViewModel(), LifecycleObserver {
 
     var sets: LiveData<MutableList<Set>> = MutableLiveData()
@@ -18,8 +18,11 @@ class EditRoutineViewModel @ViewModelInject constructor(private val setRepositor
         }
     }
 
+    fun insertSet(set: Set) = viewModelScope.launch(Dispatchers.IO) {
+        setRepository.insert(set)
+    }
+
     fun deleteSet(set: Set) = viewModelScope.launch(Dispatchers.IO) {
         setRepository.delete(set)
     }
-
 }

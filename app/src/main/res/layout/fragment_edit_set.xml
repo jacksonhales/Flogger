@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textview_set_performOrder"
+                android:id="@+id/edittext_set_performOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

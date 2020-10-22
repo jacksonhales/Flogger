@@ -23,15 +23,15 @@ class RoutineViewModel @ViewModelInject constructor(private val routineRepositor
         return routineRepository.getRoutineById(routineId)
     }
 
-    fun insert(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
+    fun insertRoutine(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         routineRepository.insert(routine)
     }
 
-    fun update(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
+    fun updateRoutine(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         routineRepository.update(routine)
     }
 
-    fun delete(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteRoutine(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {
         routineRepository.delete(routine)
     }
 }
