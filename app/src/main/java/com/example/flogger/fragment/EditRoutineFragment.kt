@@ -1,6 +1,7 @@
 package com.example.flogger.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flogger.R
 import com.example.flogger.adapter.SetListAdapter
 import com.example.flogger.entity.Routine
+import com.example.flogger.viewmodel.RoutineViewModel
 import com.example.flogger.viewmodel.SetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_edit_routine.*
@@ -21,7 +23,9 @@ import kotlinx.android.synthetic.main.fragment_edit_routine.*
 class EditRoutineFragment() : Fragment() {
     private val args: EditRoutineFragmentArgs by navArgs()
     private lateinit var setAdapter: SetListAdapter
-    private var routine: Routine? = null
+    private var passedRoutine: Routine? = null
+    private var updatedRoutine: Routine? = null
+    private lateinit var routineViewModel: RoutineViewModel
     private lateinit var setViewModel: SetViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +38,7 @@ class EditRoutineFragment() : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_edit_routine, container, false)
     }
@@ -47,7 +52,7 @@ class EditRoutineFragment() : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        routine?.routineId?.let { setViewModel.getSets(it) }
+        passedRoutine?.routineId?.let { setViewModel.getSets(it) }
         getSets()
     }
 
@@ -65,25 +70,37 @@ class EditRoutineFragment() : Fragment() {
             view?.findNavController()?.navigate(action)
         }
 
+
+
         setAdapter.setDeleteOnClickListener {
             setViewModel.deleteSet(it)
         }
     }
 
     private fun initView() {
+        routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
         setViewModel = ViewModelProvider(this).get(SetViewModel::class.java)
 
-        routine = args.routine
+        passedRoutine = args.routine
 
-        edittext_routine_name.setText(routine?.name)
+        edittext_routine_name.setText(passedRoutine?.name)
 
         fab_add_set.setOnClickListener {
             val action =
                 EditRoutineFragmentDirections
-                    .actionEditRoutineFragmentToAddSetFragment(routine!!)
+                    .actionEditRoutineFragmentToAddSetFragment(passedRoutine!!)
             view?.findNavController()?.navigate(action)
         }
 
+        fab_save_edited_routine.setOnClickListener {
+            updatedRoutine = Routine(passedRoutine!!.routineId, edittext_routine_name.text.toString())
+
+            routineViewModel.updateRoutine(updatedRoutine!!)
+            val action =
+                EditRoutineFragmentDirections
+                    .actionEditRoutineFragmentToRoutineListFragment()
+            view?.findNavController()?.navigate(action)
+        }
     }
 
     private fun getSets()

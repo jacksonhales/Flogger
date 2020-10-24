@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.flogger.R
 import com.example.flogger.entity.Set
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_routine.*
+import kotlinx.android.synthetic.main.fragment_edit_routine.*
 import kotlinx.android.synthetic.main.fragment_edit_set.*
 
 @AndroidEntryPoint
@@ -43,6 +43,10 @@ class EditSetFragment : Fragment() {
         set = args.set
 
         edittext_set_performOrder.setText(set?.performOrder.toString())
+        edittext_set_exercise.setText(set?.exercise)
+        filled_edp_exerciseType.text = set?.exerciseType?.fName
+        edittext_set_goal.setText(set?.goal.toString())
+
     }
 
 

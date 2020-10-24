@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -58,7 +56,7 @@ class AddSetFragment : Fragment() {
         ) }/*
         filled_edp_exerciseType.adapter(exerciseTypeAdapter)*/
 
-        fab_save_set.setOnClickListener {
+        fab_save_added_set.setOnClickListener {
             val set = getSetDetails()
             setViewModel.insertSet(set)
             val action =

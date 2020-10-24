@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_editRoutineFragment_to_addSetFragment"
             app:destination="@id/addSetFragment" />
+        <action
+            android:id="@+id/action_editRoutineFragment_to_routineListFragment"
+            app:destination="@id/routineListFragment" />
     </fragment>
     <fragment
         android:id="@+id/editSetFragment"
