@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.navArgs
 import com.example.flogger.R
 import com.example.flogger.entity.Set
+import com.example.flogger.enumeration.ExerciseType
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_edit_routine.*
 import kotlinx.android.synthetic.main.fragment_edit_set.*
 
 @AndroidEntryPoint
@@ -40,11 +41,19 @@ class EditSetFragment : Fragment() {
 
     private fun initView() {
 
+        val exerciseTypeAdapter = this.context?.let { ArrayAdapter<ExerciseType>(
+            it,
+            R.layout.dropdown_exercise_type_item,
+            ExerciseType.values()
+        ) }
+
+        filled_edp_exerciseType.setAdapter(exerciseTypeAdapter)
+
         set = args.set
 
         edittext_set_performOrder.setText(set?.performOrder.toString())
         edittext_set_exercise.setText(set?.exercise)
-        filled_edp_exerciseType.text = set?.exerciseType?.fName
+        filled_edp_exerciseType.setText(set?.exerciseType?.fName)
         edittext_set_goal.setText(set?.goal.toString())
 
     }

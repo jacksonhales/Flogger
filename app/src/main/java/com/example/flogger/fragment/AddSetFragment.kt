@@ -53,8 +53,9 @@ class AddSetFragment : Fragment() {
             it,
             R.layout.dropdown_exercise_type_item,
             ExerciseType.values()
-        ) }/*
-        filled_edp_exerciseType.adapter(exerciseTypeAdapter)*/
+        ) }
+
+        filled_edp_exerciseType.setAdapter(exerciseTypeAdapter)
 
         fab_save_added_set.setOnClickListener {
             val set = getSetDetails()

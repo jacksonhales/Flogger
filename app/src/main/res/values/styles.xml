@@ -1,10 +1,25 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textViewStyle">@style/Widget.Flogger.TextView</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.Flogger.ExtendedFloatingActionButton</item>
     </style>
 
+    <style name="Widget.Flogger.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">#00FF00</item>
+    </style>
+
+    <style name="Widget.Flogger.ExtendedFloatingActionButton" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:textColor">#00FF00</item>
+    </style>
+
+    <style name="Widget.Flogger.Button.Delete" parent="Widget.MaterialComponents.Button">
+        <item name="colorPrimary">@color/colorDelete</item>
+    </style>
+)
 </resources>

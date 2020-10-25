@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
 
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-        <TextView
+        <AutoCompleteTextView
             android:inputType="none"
             android:id="@+id/filled_edp_exerciseType"
             android:hint="@string/til_set_exerciseType"
