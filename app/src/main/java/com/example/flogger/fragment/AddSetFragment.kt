@@ -48,9 +48,6 @@ class AddSetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fabAddSet = view.findViewById<FloatingActionButton>(R.id.fab_add_set)
-
-
         initView()
     }
 
