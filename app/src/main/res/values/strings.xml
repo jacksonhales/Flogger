@@ -6,15 +6,16 @@
     <string name="textview_set_recyclerview">Sets</string>
     <string name="button_routine_name">Routine Name</string>
     <string name="fab_add_routine">Add Routine</string>
-    <string name="fab_save_routine">Save Routine</string>
+    <string name="fab_update_routine">Update Routine</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="button_save_set">Save Set</string>
+    <string name="fab_update_set">Update Set</string>
     <string name="edittext_set_performOrder">Perform Order</string>
     <string name="edittext_set_exercise">Exercise</string>
     <string name="edittext_set_goal">Goal</string>
     <string name="edittext_routine_name">Name</string>
-    <string name="fab_save_set">Add Set</string>
+    <string name="fab_add_set">Add Set</string>
     <string name="til_set_exerciseType">Exercise Type</string>
+    <string name="textview_recyclerview_heading_routines">Routines</string>
     <!--    <string name="routine_tab_text">Routines</string>
     <string name="history_tab_text">History</string>-->
 </resources>

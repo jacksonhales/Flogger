@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.flogger.R
+import com.example.flogger.activity.MainActivity
 import com.example.flogger.entity.Set
 import com.example.flogger.enumeration.ExerciseType
 import com.example.flogger.viewmodel.SetViewModel
@@ -27,6 +28,13 @@ class AddSetFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Set title bar
+        (activity as MainActivity?)
+            ?.setActionBarTitle("Add Set")
     }
 
     override fun onCreateView(

@@ -22,6 +22,10 @@ class SetViewModel @ViewModelInject constructor(private val setRepository: SetRe
         setRepository.insert(set)
     }
 
+    fun updateSet(set: Set) = viewModelScope.launch(Dispatchers.IO) {
+        setRepository.update(set)
+    }
+
     fun deleteSet(set: Set) = viewModelScope.launch(Dispatchers.IO) {
         setRepository.delete(set)
     }

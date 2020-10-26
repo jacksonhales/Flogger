@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="recyclerview_item_height">60dp</dimen>
+    <dimen name="fragment_left_margin">10dp</dimen>
+    <dimen name="fragment_right_margin">10dp</dimen>
+    <dimen name="fragment_top_margin">10dp</dimen>
 </resources>

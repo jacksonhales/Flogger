@@ -29,6 +29,16 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
         notifyDataSetChanged()
     }
 
+    fun moveItem(from: Int, to: Int) {
+        val fromRoutine = routines[from]
+        routines.removeAt(from)
+        if (to < from) {
+            routines.add(to, fromRoutine)
+        } else {
+            routines.add(to - 1, fromRoutine)
+        }
+    }
+
     inner class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val routineNameView: TextView = itemView.findViewById(R.id.textview_routine_name)
 

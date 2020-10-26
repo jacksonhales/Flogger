@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.flogger.R
+import com.example.flogger.activity.MainActivity
 import com.example.flogger.entity.Routine
 import com.example.flogger.viewmodel.RoutineViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,15 @@ class AddRoutineFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Set title bar
+        (activity as MainActivity?)
+            ?.setActionBarTitle("Add Set")
+        (activity as MainActivity?)
+            ?.setBackNavigation()
     }
 
     override fun onCreateView(
@@ -36,7 +46,7 @@ class AddRoutineFragment : Fragment() {
         routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
         this.lifecycle.addObserver(routineViewModel)
 
-        add_routine.setOnClickListener {
+        fab_add_routine.setOnClickListener {
             val routine = getRoutineDetails()
             routineViewModel.insertRoutine(routine)
 
@@ -48,7 +58,7 @@ class AddRoutineFragment : Fragment() {
     }
 
     private fun getRoutineDetails(): Routine {
-        val name = routine_name.text.toString()
+        val name = edittext_routine_name.text.toString()
         return Routine(0, name)
     }
 }

@@ -29,11 +29,18 @@ class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAd
         notifyDataSetChanged()
     }
 
+    fun moveItem(from: Int, to: Int) {
+        val fromRoutine = sets[from]
+        sets.removeAt(from)
+        if (to < from) {
+            sets.add(to, fromRoutine)
+        } else {
+            sets.add(to - 1, fromRoutine)
+        }
+    }
+
     inner class SetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val setPerformOrderView: TextView = itemView.findViewById(R.id.textview_set_performOrder)
         private val setExercise: TextView = itemView.findViewById(R.id.textview_set_exercise)
-        private val setExerciseType: TextView = itemView.findViewById(R.id.textview_set_exerciseType)
-        private val setExerciseGoal: TextView = itemView.findViewById(R.id.textview_set_goal)
 
         init {
             itemView.button_edit_set.setOnClickListener { editListener?.invoke(sets[adapterPosition])}
@@ -42,10 +49,7 @@ class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAd
 
         fun bind(item: Set)
         {
-            setPerformOrderView.text = item.performOrder.toString()
             setExercise.text = item.exercise
-            setExerciseType.text = item.exerciseType.toString()
-            setExerciseGoal.text = item.goal.toString()
         }
     }
 

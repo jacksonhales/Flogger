@@ -5,52 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.EditRoutineFragment"
-    android:id="@+id/fragment_edit_routine">
+    android:id="@+id/fragment_edit_routine"
+    android:layout_marginStart="@dimen/fragment_left_margin"
+    android:layout_marginEnd="@dimen/fragment_right_margin"
+    android:layout_marginTop="@dimen/fragment_top_margin">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_routine"
+            android:id="@+id/til_routine_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_routine_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:hint="@string/edittext_routine_name"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textview_sets"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/sets_heading_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/textview_set_recyclerview"
+            android:orientation="horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_routine"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/textview_sets"
-            app:layout_constraintTop_toBottomOf="@id/til_routine"
-            app:fabSize="mini"
-            android:src="@drawable/ic_baseline_add_24"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_routine_name">
+                <TextView
+                    android:id="@+id/textview_sets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/textview_set_recyclerview"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:theme="@style/Widget.Flogger.RecyclerView.TextView.Heading"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/set_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_sets"
+            app:layout_constraintTop_toBottomOf="@id/sets_heading_layout"
             app:layout_constraintRight_toRightOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fab_save_edited_routine"
+            android:id="@+id/fab_add_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/fab_save_routine"
-            android:text="@string/fab_save_routine"
+            android:contentDescription="@string/fab_add_set"
+            android:text="@string/fab_add_set"
+            android:layout_marginTop="10dp"
+            app:icon="@drawable/ic_baseline_add_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/set_recyclerview"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_update_routine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/fab_update_routine"
+            android:text="@string/fab_update_routine"
+            android:layout_marginBottom="20dp"
             app:icon="@drawable/ic_baseline_save_24"
             app:fabSize="auto"
             app:layout_constraintLeft_toLeftOf="parent"

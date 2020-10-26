@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context=".fragment.AddSetFragment">
+    tools:context=".fragment.AddSetFragment"
+    android:layout_marginStart="@dimen/fragment_left_margin"
+    android:layout_marginEnd="@dimen/fragment_right_margin"
+    android:layout_marginTop="@dimen/fragment_top_margin">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_set_performOrder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edittext_set_performOrder"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edittext_set_performOrder"/>
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/til_set_exercise">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_set_performOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/edittext_set_performOrder"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_set_exercise"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edittext_set_exercise"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edittext_set_exercise"/>
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_set_performOrder"
+        app:layout_constraintBottom_toTopOf="@+id/til_set_exerciseType">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_set_exercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edittext_set_exercise"
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -34,32 +48,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_set_exercise"
+        app:layout_constraintBottom_toTopOf="@+id/til_set_goal"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <AutoCompleteTextView
             android:inputType="none"
             android:id="@+id/filled_edp_exerciseType"
             android:hint="@string/til_set_exerciseType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_set_goal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edittext_set_goal"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edittext_set_goal"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_set_exerciseType">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_set_goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/edittext_set_goal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_save_added_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/fab_save_set"
-        android:text="@string/fab_save_set"
+        android:contentDescription="@string/fab_add_set"
+        android:text="@string/fab_add_set"
+        android:layout_marginBottom="20dp"
         app:icon="@drawable/ic_baseline_save_24"
-        app:fabSize="auto"/>
-</LinearLayout>
+        app:fabSize="auto"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

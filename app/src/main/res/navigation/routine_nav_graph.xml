@@ -42,6 +42,13 @@
             android:name="set"
             app:argType="com.example.flogger.entity.Set">
         </argument>
+        <argument
+            android:name="routine"
+            app:argType="com.example.flogger.entity.Routine">
+        </argument>
+        <action
+            android:id="@+id/action_editSetFragment_to_editRoutineFragment"
+            app:destination="@id/editRoutineFragment" />
     </fragment>
     <fragment
         android:id="@+id/routineListFragment"
