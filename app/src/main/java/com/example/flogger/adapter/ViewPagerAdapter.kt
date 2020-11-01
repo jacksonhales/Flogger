@@ -2,8 +2,8 @@ package com.example.flogger.adapter
 
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.flogger.fragment.HistoryFragment
+import androidx.viewpager2.adapter.FragmentStateAdapter/*
+import com.example.flogger.fragment.HistoryFragment*/
 import com.example.flogger.fragment.RoutineListFragment
 
 class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -18,7 +18,7 @@ class ViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> RoutineListFragment()
-            1 -> HistoryFragment()
+/*            1 -> HistoryFragment()*/
             else -> RoutineListFragment()
         }
     }

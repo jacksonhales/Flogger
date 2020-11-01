@@ -14,6 +14,7 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
 
     private var editListener: ((routine: Routine) -> Unit)? = null
     private var deleteListener: ((routine: Routine) -> Unit)? = null
+    private var nameListener: ((routine: Routine) -> Unit)? = null
 
     fun setEditOnClickListener(listener: (routine: Routine) -> Unit) {
         this.editListener = listener
@@ -21,6 +22,10 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
 
     fun setDeleteOnClickListener(listener: (routine: Routine) -> Unit) {
         this.deleteListener = listener
+    }
+
+    fun setNameOnClickListener(listener: (routine: Routine) -> Unit) {
+        this.nameListener = listener
     }
 
     fun refreshAdapter(newRoutines : List<Routine>){
@@ -45,6 +50,7 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
         init {
             itemView.button_edit_routine.setOnClickListener { editListener?.invoke(routines[adapterPosition])}
             itemView.button_delete_routine.setOnClickListener { deleteListener?.invoke(routines[adapterPosition])}
+            itemView.textview_routine_name.setOnClickListener { nameListener?.invoke(routines[adapterPosition])}
         }
 
         fun bind(item: Routine)

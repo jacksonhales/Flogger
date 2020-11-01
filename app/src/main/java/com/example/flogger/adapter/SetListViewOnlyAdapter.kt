@@ -9,41 +9,18 @@ import com.example.flogger.R
 import com.example.flogger.entity.Set
 import kotlinx.android.synthetic.main.set_recyclerview_item.view.*
 
-class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAdapter.SetViewHolder>(){
+class SetListViewOnlyAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListViewOnlyAdapter.SetViewHolder>(){
 
-    private var editListener: ((set: Set) -> Unit)? = null
-    private var deleteListener: ((set: Set) -> Unit)? = null
-
-    fun setEditOnClickListener(listener: (set: Set) -> Unit) {
-        this.editListener = listener
-    }
-
-    fun setDeleteOnClickListener(listener: (set: Set) -> Unit) {
-        this.deleteListener = listener
-    }
-
-    fun refreshAdapter(newSets : List<Set>){
+   fun refreshAdapter(newSets : List<Set>){
         sets.clear()
         sets.addAll(newSets)
         notifyDataSetChanged()
-    }
-
-    fun moveItem(from: Int, to: Int) {
-        val fromRoutine = sets[from]
-        sets.removeAt(from)
-        if (to < from) {
-            sets.add(to, fromRoutine)
-        } else {
-            sets.add(to - 1, fromRoutine)
-        }
     }
 
     inner class SetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val setExercise: TextView = itemView.findViewById(R.id.textview_set_exercise)
 
         init {
-            itemView.button_edit_set.setOnClickListener { editListener?.invoke(sets[adapterPosition])}
-            itemView.button_delete_set.setOnClickListener { deleteListener?.invoke(sets[adapterPosition])}
         }
 
         fun bind(item: Set)
@@ -54,7 +31,7 @@ class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SetViewHolder(
         LayoutInflater.from(parent.context).inflate(
-        R.layout.set_recyclerview_item, parent, false))
+            R.layout.set_view_only_recyclerview_item, parent, false))
 
     override fun onBindViewHolder(holder: SetViewHolder, position: Int) {
         val current = sets[position]

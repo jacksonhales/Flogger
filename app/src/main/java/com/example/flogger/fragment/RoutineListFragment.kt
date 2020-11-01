@@ -80,6 +80,13 @@ class RoutineListFragment : Fragment() {
         routineAdapter.setDeleteOnClickListener {
             routineViewModel.deleteRoutine(it)
         }
+
+        routineAdapter.setNameOnClickListener {
+            val action =
+                RoutineListFragmentDirections
+                    .actionRoutineListFragmentToViewRoutineFragment(it)
+            view?.findNavController()?.navigate(action)
+        }
     }
 
     private fun initView() {

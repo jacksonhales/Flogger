@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_routineListFragment_to_addRoutineFragment"
             app:destination="@id/addRoutineFragment" />
+        <action
+            android:id="@+id/action_routineListFragment_to_viewRoutineFragment"
+            app:destination="@id/viewRoutineFragment" />
     </fragment>
     <fragment
         android:id="@+id/addSetFragment"
@@ -74,5 +77,18 @@
         <action
             android:id="@+id/action_addSetFragment_to_editRoutineFragment"
             app:destination="@id/editRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewRoutineFragment"
+        android:name="com.example.flogger.fragment.ViewRoutineFragment"
+        android:label="fragment_view_routine"
+        tools:layout="@layout/fragment_view_routine" >
+        <action
+            android:id="@+id/action_viewRoutineFragment_to_routineListFragment"
+            app:destination="@id/routineListFragment" />
+        <argument
+            android:name="routine"
+            app:argType="com.example.flogger.entity.Routine">
+        </argument>
     </fragment>
 </navigation>
