@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,7 +16,6 @@ import com.example.flogger.entity.Set
 import com.example.flogger.enumeration.ExerciseType
 import com.example.flogger.viewmodel.SetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_set.*
 import kotlinx.android.synthetic.main.fragment_edit_set.*
 import kotlinx.android.synthetic.main.fragment_edit_set.edittext_set_exercise
 import kotlinx.android.synthetic.main.fragment_edit_set.edittext_set_goal
@@ -28,7 +28,7 @@ class EditSetFragment : Fragment() {
     private val args: EditSetFragmentArgs by navArgs()
     private var passedSet: Set? = null
     private var updatedSet: Set? = null
-    private lateinit var setViewModel: SetViewModel
+    private val setViewModel: SetViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,6 @@ class EditSetFragment : Fragment() {
     }
 
     private fun initView() {
-        setViewModel = ViewModelProvider(this).get(SetViewModel::class.java)
 
         val exerciseTypeAdapter = this.context?.let { ArrayAdapter<ExerciseType>(
             it,

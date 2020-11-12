@@ -12,9 +12,9 @@ class SetViewModel @ViewModelInject constructor(private val setRepository: SetRe
 
     var sets: LiveData<MutableList<Set>> = MutableLiveData()
 
-    fun getSets(id: Long){
+    fun getSets(routineId: Long){
         viewModelScope.launch {
-            sets = setRepository.getSetsByRoutineId(id)
+            sets = setRepository.getSetsByRoutineId(routineId)
         }
     }
 

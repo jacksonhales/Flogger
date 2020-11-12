@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.flogger.R
 import com.example.flogger.activity.MainActivity
@@ -17,17 +17,13 @@ import kotlinx.android.synthetic.main.fragment_add_routine.*
 @AndroidEntryPoint
 class AddRoutineFragment : Fragment() {
 
-    private lateinit var routineViewModel: RoutineViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val routineViewModel: RoutineViewModel by viewModels()
 
     override fun onResume() {
         super.onResume()
         // Set title bar
         (activity as MainActivity?)
-            ?.setActionBarTitle("Add Set")
+            ?.setActionBarTitle("Add Routine")
         (activity as MainActivity?)
             ?.setBackNavigation()
     }
@@ -43,7 +39,6 @@ class AddRoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
         this.lifecycle.addObserver(routineViewModel)
 
         fab_add_routine.setOnClickListener {

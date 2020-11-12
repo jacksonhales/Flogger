@@ -5,34 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flogger.R
 import com.example.flogger.activity.MainActivity
-import com.example.flogger.adapter.SetListAdapter
 import com.example.flogger.adapter.SetListViewOnlyAdapter
 import com.example.flogger.entity.Routine
-import com.example.flogger.viewmodel.RoutineViewModel
 import com.example.flogger.viewmodel.SetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_edit_routine.*
 import kotlinx.android.synthetic.main.fragment_view_routine.*
 
 @AndroidEntryPoint
 class ViewRoutineFragment : Fragment() {
 
-    private val args: EditRoutineFragmentArgs by navArgs()
+    private val args: ViewRoutineFragmentArgs by navArgs()
     private lateinit var setAdapter: SetListViewOnlyAdapter
     private var passedRoutine: Routine? = null
-    private lateinit var setViewModel: SetViewModel
+    private val setViewModel: SetViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
         }
     }
 
@@ -75,8 +71,6 @@ class ViewRoutineFragment : Fragment() {
     }
 
     private fun initView() {
-        setViewModel = ViewModelProvider(this).get(SetViewModel::class.java)
-
         passedRoutine = args.routine
 
         textview_routine_name.text = passedRoutine!!.name

@@ -16,6 +16,9 @@
     <string name="fab_add_set">Add Set</string>
     <string name="til_set_exerciseType">Exercise Type</string>
     <string name="textview_recyclerview_heading_routines">Routines</string>
+    <string name="confirm_exit">Are you sure you want to exit Flogger?</string>
+    <string name="exit_button">Exit</string>
+    <string name="cancel_button">Cancel</string>
     <!--    <string name="routine_tab_text">Routines</string>
     <string name="history_tab_text">History</string>-->
 </resources>

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 // Room database annotation
 @Database (entities = [Routine::class, Set::class], version = 6, exportSchema = false)
 @TypeConverters(Converter::class)
-public abstract class FloggerRoomDatabase : RoomDatabase() {
+abstract class FloggerRoomDatabase : RoomDatabase() {
 
     abstract fun routineDao(): RoutineDao
     abstract fun setDao(): SetDao

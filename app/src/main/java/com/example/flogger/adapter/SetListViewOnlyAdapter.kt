@@ -17,6 +17,17 @@ class SetListViewOnlyAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<S
         notifyDataSetChanged()
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SetViewHolder(
+        LayoutInflater.from(parent.context).inflate(
+            R.layout.set_view_only_recyclerview_item, parent, false))
+
+    override fun onBindViewHolder(holder: SetViewHolder, position: Int) {
+        val current = sets[position]
+        holder.bind(current)
+    }
+
+    override fun getItemCount() = sets.size
+
     inner class SetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val setExercise: TextView = itemView.findViewById(R.id.textview_set_exercise)
 
@@ -29,14 +40,4 @@ class SetListViewOnlyAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<S
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = SetViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.set_view_only_recyclerview_item, parent, false))
-
-    override fun onBindViewHolder(holder: SetViewHolder, position: Int) {
-        val current = sets[position]
-        holder.bind(current)
-    }
-
-    override fun getItemCount() = sets.size
 }

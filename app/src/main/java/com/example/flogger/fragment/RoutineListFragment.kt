@@ -1,13 +1,13 @@
 package com.example.flogger.fragment
 
-import android.hardware.SensorManager.getOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,12 +21,11 @@ import com.example.flogger.viewmodel.RoutineViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_routine_list.*
 
-
 @AndroidEntryPoint
 class RoutineListFragment : Fragment() {
 
     private lateinit var routineAdapter: RoutineListAdapter
-    private lateinit var routineViewModel: RoutineViewModel
+    private val routineViewModel: RoutineViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,6 @@ class RoutineListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initAdapter()
         initView()
     }
@@ -54,6 +52,9 @@ class RoutineListFragment : Fragment() {
         // Set title bar
         (activity as MainActivity?)
             ?.setActionBarTitle("Flogger Fitness Logger")
+        // Hacky way to ensure back arrow not displayed in this fragment
+        (activity as MainActivity?)
+            ?.setBackNavigation()
         getRoutines()
     }
 
@@ -91,7 +92,6 @@ class RoutineListFragment : Fragment() {
 
     private fun initView() {
 
-        routineViewModel = ViewModelProvider(this).get(RoutineViewModel::class.java)
         this.lifecycle.addObserver(routineViewModel)
 
         fab_add_routine.setOnClickListener {

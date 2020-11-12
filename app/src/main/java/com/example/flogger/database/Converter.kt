@@ -12,3 +12,4 @@ object Converter {
     @JvmStatic
     fun stringToExerciseType(s: String?) = s?.let(ExerciseType::valueOf)
 }
+

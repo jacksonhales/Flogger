@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.flogger.R
@@ -14,7 +14,6 @@ import com.example.flogger.activity.MainActivity
 import com.example.flogger.entity.Set
 import com.example.flogger.enumeration.ExerciseType
 import com.example.flogger.viewmodel.SetViewModel
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_set.*
 
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_add_set.*
 @AndroidEntryPoint
 class AddSetFragment : Fragment() {
     private val args: AddSetFragmentArgs by navArgs()
-    private lateinit var setViewModel: SetViewModel
+    private val setViewModel: SetViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,6 @@ class AddSetFragment : Fragment() {
     }
 
     private fun initView() {
-        setViewModel = ViewModelProvider(this).get(SetViewModel::class.java)
 
         val exerciseTypeAdapter = this.context?.let { ArrayAdapter<ExerciseType>(
             it,

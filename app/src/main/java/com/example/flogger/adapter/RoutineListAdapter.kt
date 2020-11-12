@@ -44,6 +44,16 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
         }
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoutineViewHolder(LayoutInflater.from(parent.context).inflate(
+        R.layout.routine_recyclerview_item, parent, false))
+
+    override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
+        val current = routines[position]
+        holder.bind(current)
+    }
+
+    override fun getItemCount() = routines.size
+
     inner class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val routineNameView: TextView = itemView.findViewById(R.id.textview_routine_name)
 
@@ -59,13 +69,5 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoutineViewHolder(LayoutInflater.from(parent.context).inflate(
-        R.layout.routine_recyclerview_item, parent, false))
 
-    override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
-        val current = routines[position]
-        holder.bind(current)
-    }
-
-    override fun getItemCount() = routines.size
 }
