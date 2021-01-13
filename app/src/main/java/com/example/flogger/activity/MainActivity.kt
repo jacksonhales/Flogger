@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         setBackNavigation()
     }
 
+    override fun onPause() {
+//        val exitDialogFragment = ConfirmExitDialogFragment.newInstance("Confirm Exit", "Are you sure you want to exit Flogger?")
+//        exitDialogFragment.show(supportFragmentManager, "TAG_CONFIRM_EXIT_DIALOG")
+            super.onPause()
+    }
+
     fun setActionBarTitle(title: String?) {
         supportActionBar!!.title = title
     }
@@ -36,12 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-  /*      ConfirmExitDialogFragment.newInstance(
-            getString(R.string.app_name),
-            getString(R.string.app_name)
-        ).show(supportFragmentManager, ConfirmExitDialogFragment.TAG)*/
         onBackPressed()
-
         return super.onSupportNavigateUp()
     }
 }

@@ -4,23 +4,32 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorSecondary</item>
-<!--        <item name="android:toolbarStyle">@style/Widget.Flogger.Toolbar</item>-->
         <item name="android:textAppearance">@style/Widget.Flogger.TextView</item>
         <item name="extendedFloatingActionButtonStyle">@style/Widget.Flogger.ExtendedFloatingActionButton</item>
     </style>
 
-<!--
-    <style name="Widget.Flogger.Toolbar"  parent="Widget.MaterialComponents.Toolbar">
-        <item name="android:colorBackground">@color/colorSecondary</item>
-    </style>
--->
+
 
     <style name="Widget.Flogger.TextView" parent="Widget.MaterialComponents.TextView">
     </style>
 
+    <style name="Widget.Flogger.Dialog.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.Flogger.Dialog.TextView.Title" parent="Widget.Flogger.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.Flogger.Dialog.TextView.Subtitle" parent="Widget.Flogger.TextView">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Widget.Flogger.RecyclerView.TextView.Heading" parent="Widget.MaterialComponents.TextView">
-            <item name="android:textSize">28sp</item>
-            <item name="android:textStyle">bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Widget.Flogger.RecyclerView.TextView" parent="Widget.Flogger.TextView">
@@ -35,5 +44,4 @@
     <style name="Widget.Flogger.Button.Delete" parent="Widget.MaterialComponents.Button">
         <item name="colorPrimary">@color/colorDelete</item>
     </style>
-)
 </resources>

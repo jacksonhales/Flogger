@@ -16,7 +16,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 // Room database annotation
-@Database (entities = [Routine::class, Set::class], version = 6, exportSchema = false)
+@Database (entities = [Routine::class, Set::class], version = 7, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class FloggerRoomDatabase : RoomDatabase() {
 
@@ -39,9 +39,9 @@ abstract class FloggerRoomDatabase : RoomDatabase() {
 
             // add initial data
             val routinesToAdd = listOf(
-                Routine(0, "Strength"),
-                Routine(0, "Cardio"),
-                Routine(0, "Flexibility")
+                Routine(0, "Strength", 1),
+                Routine(0, "Cardio", 2),
+                Routine(0, "Flexibility", 3)
             )
 
             val setsToAdd = listOf(

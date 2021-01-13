@@ -11,6 +11,8 @@ class RoutineViewModel @ViewModelInject constructor(private val routineRepositor
     ViewModel(), LifecycleObserver {
 
     var routines: LiveData<MutableList<Routine>> = MutableLiveData()
+    var singleRoutine: MutableLiveData<Routine> = MutableLiveData()
+    var largestDisplayOrder: MutableLiveData<Int> = MutableLiveData()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun getRoutines(){
@@ -19,8 +21,15 @@ class RoutineViewModel @ViewModelInject constructor(private val routineRepositor
         }
     }
 
-    fun getRoutine(routineId: Long) : Routine {
-        return routineRepository.getRoutineById(routineId)
+    fun getRoutine(routineId: Long) = viewModelScope.launch(Dispatchers.IO){
+        val routine = routineRepository.getRoutineById(routineId)
+        singleRoutine.postValue(routine)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun getLargestRoutineDisplayOrder() = viewModelScope.launch(Dispatchers.IO) {
+        val displayOrder = routineRepository.getLargestRoutineDisplayOrder()
+        largestDisplayOrder.postValue(displayOrder)
     }
 
     fun insertRoutine(routine: Routine) = viewModelScope.launch(Dispatchers.IO) {

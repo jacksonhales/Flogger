@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,8 +20,8 @@ import com.example.flogger.adapter.SetListAdapter
 import com.example.flogger.entity.Routine
 import com.example.flogger.viewmodel.RoutineViewModel
 import com.example.flogger.viewmodel.SetViewModel
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_edit_routine.*
 
 @AndroidEntryPoint
 class EditRoutineFragment() : Fragment() {
@@ -68,13 +69,15 @@ class EditRoutineFragment() : Fragment() {
     private fun initAdapter() {
         setAdapter = SetListAdapter(arrayListOf())
         val lm = LinearLayoutManager(context)
-        set_recyclerview.apply {
+        val setListAdapter = view?.findViewById<RecyclerView>(R.id.set_recyclerview)
+
+        setListAdapter?.apply {
             layoutManager = lm
             adapter = setAdapter
             addItemDecoration(DividerItemDecoration(context, lm.orientation))
         }
 
-        itemTouchHelper.attachToRecyclerView(set_recyclerview)
+        itemTouchHelper.attachToRecyclerView(setListAdapter)
 
         setAdapter.setEditOnClickListener {
             val action =
@@ -95,19 +98,24 @@ class EditRoutineFragment() : Fragment() {
     private fun initView() {
         passedRoutine = args.routine
 
-        edittext_routine_name.setText(passedRoutine?.name)
+        val editTextRoutineName = view?.findViewById<EditText>(R.id.edittext_routine_name)
+        val fabAddSet = view?.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_set)
+        val fabUpdateRoutine = view?.findViewById<ExtendedFloatingActionButton>(R.id.fab_update_routine)
 
-        fab_add_set.setOnClickListener {
+        editTextRoutineName?.setText(passedRoutine?.name)
+
+        fabAddSet?.setOnClickListener {
             val action =
                 EditRoutineFragmentDirections
                     .actionEditRoutineFragmentToAddSetFragment(passedRoutine!!)
             view?.findNavController()?.navigate(action)
         }
 
-        fab_update_routine.setOnClickListener {
+        fabUpdateRoutine?.setOnClickListener {
             updatedRoutine = Routine(
                 passedRoutine!!.routineId,
-                edittext_routine_name.text.toString()
+                editTextRoutineName?.text.toString(),
+                passedRoutine!!.displayOrder
             )
 
             routineViewModel.updateRoutine(updatedRoutine!!)

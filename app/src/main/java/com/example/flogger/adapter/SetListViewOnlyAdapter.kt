@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.entity.Set
-import kotlinx.android.synthetic.main.set_recyclerview_item.view.*
 
 class SetListViewOnlyAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListViewOnlyAdapter.SetViewHolder>(){
 
@@ -39,5 +38,4 @@ class SetListViewOnlyAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<S
             setExercise.text = item.exercise
         }
     }
-
 }

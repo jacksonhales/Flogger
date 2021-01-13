@@ -3,7 +3,7 @@ package com.example.flogger.entity
 import android.os.Parcelable
 import androidx.room.*
 import com.example.flogger.enumeration.ExerciseType
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "set_table",
     foreignKeys = [ForeignKey(

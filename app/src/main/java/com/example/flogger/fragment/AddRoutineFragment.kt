@@ -5,14 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.flogger.R
 import com.example.flogger.activity.MainActivity
 import com.example.flogger.entity.Routine
 import com.example.flogger.viewmodel.RoutineViewModel
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_routine.*
 
 @AndroidEntryPoint
 class AddRoutineFragment : Fragment() {
@@ -41,7 +44,9 @@ class AddRoutineFragment : Fragment() {
 
         this.lifecycle.addObserver(routineViewModel)
 
-        fab_add_routine.setOnClickListener {
+        val fabAddRoutine = view.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_routine)
+
+        fabAddRoutine.setOnClickListener {
             val routine = getRoutineDetails()
             routineViewModel.insertRoutine(routine)
 
@@ -53,7 +58,18 @@ class AddRoutineFragment : Fragment() {
     }
 
     private fun getRoutineDetails(): Routine {
-        val name = edittext_routine_name.text.toString()
-        return Routine(0, name)
+
+        val editTextRoutineName = view?.findViewById<EditText>(R.id.edittext_routine_name)
+        val name = editTextRoutineName?.text.toString()
+
+/*        routineViewModel.largestDisplayOrder.observe(viewLifecycleOwner,  {
+            displayOrder = it!!
+        })*/
+
+        routineViewModel.getLargestRoutineDisplayOrder()
+
+        val largestDisplayOrder = routineViewModel.largestDisplayOrder.value!!
+
+        return Routine(0, name, largestDisplayOrder + 1)
     }
 }

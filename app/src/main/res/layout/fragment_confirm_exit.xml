@@ -5,14 +5,42 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textview_confirm_exit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textview_confirm_exit_subtitle"
+        style="@style/Widget.Flogger.Dialog.TextView.Title"/>
+
+    <TextView
+        android:id="@+id/textview_confirm_exit_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_confirm_exit_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_confirm_exit_cancel"
+        style="@style/Widget.Flogger.Dialog.TextView.Subtitle"/>
 
     <Button
-        android:id="@+id/confirm_exit_yes"
+        android:id="@+id/button_confirm_exit_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/confirm_exit_cancel"
+        app:layout_constraintRight_toLeftOf="@id/button_confirm_exit_exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/Widget.Flogger.Dialog.Button"/>
+
+    <Button
+        android:id="@+id/button_confirm_exit_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirm_exit_exit"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
-
+        style="@style/Widget.Flogger.Dialog.Button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,4 +9,5 @@
     <color name="colorDelete">#D11A2A</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparent">#00FFFFFF</color>
 </resources>

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,9 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.activity.MainActivity
 import com.example.flogger.adapter.RoutineListAdapter
+import com.example.flogger.entity.Routine
 import com.example.flogger.viewmodel.RoutineViewModel
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_routine_list.*
 
 @AndroidEntryPoint
 class RoutineListFragment : Fragment() {
@@ -62,14 +62,15 @@ class RoutineListFragment : Fragment() {
         routineAdapter = RoutineListAdapter(arrayListOf())
 
         val lm = LinearLayoutManager(context)
+        val recyclerViewRoutines = view?.findViewById<RecyclerView>(R.id.routine_recyclerview)
 
-        routine_recyclerview.apply {
+        recyclerViewRoutines?.apply {
             layoutManager = lm
             adapter = routineAdapter
             addItemDecoration(DividerItemDecoration(context, lm.orientation))
         }
 
-        itemTouchHelper.attachToRecyclerView(routine_recyclerview)
+        itemTouchHelper.attachToRecyclerView(recyclerViewRoutines)
 
         routineAdapter.setEditOnClickListener {
             val action =
@@ -93,8 +94,9 @@ class RoutineListFragment : Fragment() {
     private fun initView() {
 
         this.lifecycle.addObserver(routineViewModel)
+        val fabAddRoutine = view?.findViewById<ExtendedFloatingActionButton>(R.id.fab_add_routine)
 
-        fab_add_routine.setOnClickListener {
+        fabAddRoutine?.setOnClickListener {
             val action =
                 RoutineListFragmentDirections
                     .actionRoutineListFragmentToAddRoutineFragment()
@@ -110,9 +112,17 @@ class RoutineListFragment : Fragment() {
     }
 
     private val itemTouchHelper by lazy {
-        // 1. Note that I am specifying all 4 directions.
-        //    Specifying START and END also allows
-        //    more organic dragging than just specifying UP and DOWN.
+
+        var adapter: RoutineListAdapter
+
+        var draggedFrom = -1
+        var draggedTo = -1
+
+        var fromRoutine: Routine = Routine(-1, "", -1)
+        var fromDisplayOrder = 0
+        var toRoutine: Routine = Routine(-1, "", -1)
+        var toDisplayOrder = 0
+
         val simpleItemTouchCallback =
             object : SimpleCallback(UP or
                     DOWN or
@@ -123,23 +133,55 @@ class RoutineListFragment : Fragment() {
                                     viewHolder: RecyclerView.ViewHolder,
                                     target: RecyclerView.ViewHolder): Boolean {
 
-                    val adapter = recyclerView.adapter as RoutineListAdapter
-                    val from = viewHolder.adapterPosition
-                    val to = target.adapterPosition
+                    adapter = recyclerView.adapter as RoutineListAdapter
+
+                    draggedFrom = viewHolder.adapterPosition
+                    draggedTo = target.adapterPosition
                     // 2. Update the backing model. Custom implementation in
                     //    MainRecyclerViewAdapter. You need to implement
                     //    reordering of the backing model inside the method.
-                    adapter.moveItem(from, to)
+                    adapter.moveItem(draggedFrom, draggedTo)
                     // 3. Tell adapter to render the model update.
-                    adapter.notifyItemMoved(from, to)
+                    adapter.notifyItemMoved(draggedFrom, draggedTo)
 
                     return true
                 }
+
+                override fun clearView(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ) {
+
+                    if (draggedFrom != -1 && draggedTo != -1 && draggedFrom != draggedTo)
+                    {
+                        moveCompleted(recyclerView)
+                    }
+
+                    draggedFrom = -1
+                    draggedTo = -1
+
+                    super.clearView(recyclerView, viewHolder)
+                }
+
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
                                       direction: Int) {
                     // 4. Code block for horizontal swipe.
                     //    ItemTouchHelper handles horizontal swipe as well, but
                     //    it is not relevant with reordering. Ignoring here.
+                }
+
+                private fun moveCompleted(recyclerView: RecyclerView) {
+
+                    adapter = recyclerView.adapter as RoutineListAdapter
+
+                    fromRoutine = adapter.getItemByPosition(draggedFrom)
+                    fromDisplayOrder = fromRoutine.displayOrder
+                    toRoutine = adapter.getItemByPosition(draggedTo)
+                    toDisplayOrder = toRoutine.displayOrder
+
+                    // 5. Update displayOrders of moved items in DB
+                    routineViewModel.updateRoutine(Routine(fromRoutine.routineId, fromRoutine.name, toDisplayOrder))
+                    routineViewModel.updateRoutine(Routine(toRoutine.routineId, toRoutine.name, fromDisplayOrder))
                 }
             }
         ItemTouchHelper(simpleItemTouchCallback)

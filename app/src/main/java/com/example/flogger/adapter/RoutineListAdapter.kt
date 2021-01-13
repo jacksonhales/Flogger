@@ -1,14 +1,13 @@
 package com.example.flogger.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.entity.Routine
-import kotlinx.android.synthetic.main.routine_recyclerview_item.view.*
 
 class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapter<RoutineListAdapter.RoutineViewHolder>(){
 
@@ -44,6 +43,10 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
         }
     }
 
+    fun getItemByPosition(position: Int) : Routine {
+        return routines[position]
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RoutineViewHolder(LayoutInflater.from(parent.context).inflate(
         R.layout.routine_recyclerview_item, parent, false))
 
@@ -55,19 +58,19 @@ class RoutineListAdapter (var routines: ArrayList<Routine>) : RecyclerView.Adapt
     override fun getItemCount() = routines.size
 
     inner class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val routineNameView: TextView = itemView.findViewById(R.id.textview_routine_name)
+        private val editRoutineButton: Button = itemView.findViewById(R.id.button_edit_routine)
+        private val deleteRoutineButton: Button = itemView.findViewById(R.id.button_delete_routine)
+        private val routineNameTextView: TextView = itemView.findViewById(R.id.textview_routine_name)
 
         init {
-            itemView.button_edit_routine.setOnClickListener { editListener?.invoke(routines[adapterPosition])}
-            itemView.button_delete_routine.setOnClickListener { deleteListener?.invoke(routines[adapterPosition])}
-            itemView.textview_routine_name.setOnClickListener { nameListener?.invoke(routines[adapterPosition])}
+            editRoutineButton.setOnClickListener { editListener?.invoke(routines[adapterPosition])}
+            deleteRoutineButton.setOnClickListener { deleteListener?.invoke(routines[adapterPosition])}
+            routineNameTextView.setOnClickListener { nameListener?.invoke(routines[adapterPosition])}
         }
 
         fun bind(item: Routine)
         {
-            routineNameView.text = item.name
+            routineNameTextView.text = item.name
         }
     }
-
-
 }

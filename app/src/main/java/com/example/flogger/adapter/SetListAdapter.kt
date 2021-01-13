@@ -3,11 +3,11 @@ package com.example.flogger.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.entity.Set
-import kotlinx.android.synthetic.main.set_recyclerview_item.view.*
 
 class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAdapter.SetViewHolder>(){
 
@@ -51,10 +51,12 @@ class SetListAdapter (var sets: ArrayList<Set>) : RecyclerView.Adapter<SetListAd
 
     inner class SetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val setExercise: TextView = itemView.findViewById(R.id.textview_set_exercise)
+        private val buttonEditSet: Button = itemView.findViewById<Button>(R.id.button_edit_set)
+        private val buttonDeleteSet: Button = itemView.findViewById<Button>(R.id.button_delete_set)
 
         init {
-            itemView.button_edit_set.setOnClickListener { editListener?.invoke(sets[adapterPosition])}
-            itemView.button_delete_set.setOnClickListener { deleteListener?.invoke(sets[adapterPosition])}
+            buttonEditSet.setOnClickListener { editListener?.invoke(sets[adapterPosition])}
+            buttonDeleteSet.setOnClickListener { deleteListener?.invoke(sets[adapterPosition])}
         }
 
         fun bind(item: Set)

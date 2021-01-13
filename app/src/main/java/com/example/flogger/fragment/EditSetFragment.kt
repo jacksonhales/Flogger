@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.flogger.R
@@ -15,12 +16,8 @@ import com.example.flogger.activity.MainActivity
 import com.example.flogger.entity.Set
 import com.example.flogger.enumeration.ExerciseType
 import com.example.flogger.viewmodel.SetViewModel
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_edit_set.*
-import kotlinx.android.synthetic.main.fragment_edit_set.edittext_set_exercise
-import kotlinx.android.synthetic.main.fragment_edit_set.edittext_set_goal
-import kotlinx.android.synthetic.main.fragment_edit_set.edittext_set_performOrder
-import kotlinx.android.synthetic.main.fragment_edit_set.filled_edp_exerciseType
 
 @AndroidEntryPoint
 class EditSetFragment : Fragment() {
@@ -29,6 +26,12 @@ class EditSetFragment : Fragment() {
     private var passedSet: Set? = null
     private var updatedSet: Set? = null
     private val setViewModel: SetViewModel by viewModels()
+    private var filledEDPExerciseType: AutoCompleteTextView? = null
+    private var editTextSetPerformOrder: EditText? = null
+    private var editTextSetExercise: EditText? = null
+    private var editTextSetGoal: EditText? = null
+    private var fabUpdateSet: ExtendedFloatingActionButton? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,16 +70,22 @@ class EditSetFragment : Fragment() {
             ExerciseType.values()
         ) }
 
-        filled_edp_exerciseType.setAdapter(exerciseTypeAdapter)
+        filledEDPExerciseType = view?.findViewById<AutoCompleteTextView>(R.id.filled_edp_exerciseType)
+        editTextSetPerformOrder = view?.findViewById<EditText>(R.id.edittext_set_performOrder)
+        editTextSetExercise = view?.findViewById<EditText>(R.id.edittext_set_exercise)
+        editTextSetGoal = view?.findViewById<EditText>(R.id.edittext_set_goal)
+        fabUpdateSet = view?.findViewById<ExtendedFloatingActionButton>(R.id.fab_update_set)
+
+        filledEDPExerciseType?.setAdapter(exerciseTypeAdapter)
 
         passedSet = args.set
 
-        edittext_set_performOrder.setText(passedSet?.performOrder.toString())
-        edittext_set_exercise.setText(passedSet?.exercise)
-        filled_edp_exerciseType.setText(passedSet?.exerciseType?.fName)
-        edittext_set_goal.setText(passedSet?.goal.toString())
+        editTextSetPerformOrder?.setText(passedSet?.performOrder.toString())
+        editTextSetExercise?.setText(passedSet?.exercise)
+        filledEDPExerciseType?.setText(passedSet?.exerciseType?.fName)
+        editTextSetGoal?.setText(passedSet?.goal.toString())
 
-        fab_update_set.setOnClickListener {
+        fabUpdateSet?.setOnClickListener {
             updatedSet = getSetDetails()
             updatedSet?.let { it1 -> setViewModel.updateSet(it1) }
 
@@ -90,10 +99,10 @@ class EditSetFragment : Fragment() {
 
     private fun getSetDetails() : Set? {
         val setId = passedSet?.setId
-        val performOrder = edittext_set_performOrder.text.toString().toInt()
-        val exercise = edittext_set_exercise.text.toString()
+        val performOrder = editTextSetPerformOrder?.text.toString().toInt()
+        val exercise = editTextSetExercise?.text.toString()
         val exerciseType = ExerciseType.REP_BASED
-        val goal = edittext_set_goal.text.toString().toInt()
+        val goal = editTextSetGoal?.text.toString().toInt()
 
         return setId?.let {
             passedSet?.ownerId?.let { it1 ->

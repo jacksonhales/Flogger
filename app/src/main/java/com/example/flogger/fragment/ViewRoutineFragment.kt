@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.flogger.R
 import com.example.flogger.activity.MainActivity
 import com.example.flogger.adapter.SetListViewOnlyAdapter
 import com.example.flogger.entity.Routine
 import com.example.flogger.viewmodel.SetViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_view_routine.*
 
 @AndroidEntryPoint
 class ViewRoutineFragment : Fragment() {
@@ -63,7 +64,8 @@ class ViewRoutineFragment : Fragment() {
     private fun initAdapter() {
         setAdapter = SetListViewOnlyAdapter(arrayListOf())
         val lm = LinearLayoutManager(context)
-        set_view_only_recyclerview.apply {
+        val recyclerViewSetsViewOnly = view?.findViewById<RecyclerView>(R.id.set_view_only_recyclerview)
+        recyclerViewSetsViewOnly?.apply {
             layoutManager = lm
             adapter = setAdapter
             addItemDecoration(DividerItemDecoration(context, lm.orientation))
@@ -73,7 +75,9 @@ class ViewRoutineFragment : Fragment() {
     private fun initView() {
         passedRoutine = args.routine
 
-        textview_routine_name.text = passedRoutine!!.name
+        val textViewRoutineName = view?.findViewById<TextView>(R.id.textview_routine_name)
+
+        textViewRoutineName?.text = passedRoutine!!.name
     }
 
     private fun getSets()

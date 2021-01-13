@@ -6,11 +6,14 @@ import com.example.flogger.entity.Routine
 
 @Dao
 interface RoutineDao {
-    @Query ("SELECT * FROM routine_table ORDER BY routineId ASC")
+    @Query ("SELECT * FROM routine_table ORDER BY displayOrder ASC")
     fun getRoutines(): LiveData<MutableList<Routine>>
 
     @Query ("SELECT * FROM routine_table WHERE routineId=(:routineId)")
-    fun getRoutineById(routineId: Long): Routine
+    suspend fun getRoutineById(routineId: Long): Routine
+
+    @Query ("SELECT MAX(displayOrder) FROM routine_table")
+    suspend fun getLargestRoutineDisplayOrder(): Int
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -24,4 +27,5 @@ interface RoutineDao {
 
     @Delete
     suspend fun delete(routine: Routine)
+
 }

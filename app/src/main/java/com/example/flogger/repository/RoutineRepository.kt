@@ -11,8 +11,12 @@ class RoutineRepository @Inject constructor(private val routineDao: RoutineDao) 
 
     fun getRoutines() = routineDao.getRoutines()
 
-    fun getRoutineById(routineId: Long): Routine {
+    suspend fun getRoutineById(routineId: Long): Routine {
         return routineDao.getRoutineById(routineId)
+    }
+
+    suspend fun getLargestRoutineDisplayOrder(): Int {
+        return routineDao.getLargestRoutineDisplayOrder()
     }
 
     suspend fun insert(routine: Routine) {
@@ -26,4 +30,5 @@ class RoutineRepository @Inject constructor(private val routineDao: RoutineDao) 
     suspend fun delete(routine: Routine) {
         routineDao.delete(routine)
     }
+
 }
